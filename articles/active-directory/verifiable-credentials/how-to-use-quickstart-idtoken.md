@@ -91,7 +91,7 @@ The claims mapping in the following example requires that you configure the toke
       {
         "clientId": "8d5b446e-22b2-4e01-bb2e-9070f6b20c90",
         "configuration": "https://didplayground.b2clogin.com/didplayground.onmicrosoft.com/B2C_1_sisu/v2.0/.well-known/openid-configuration",
-        "redirectUri": "vcclient://openid",
+        "redirectUri": "vcclient://openid/",
         "scope": "openid profile email",
         "mapping": [
           {
@@ -143,7 +143,7 @@ The clientId attribute is the application ID of a registered application in the 
 
    If you want only accounts in your tenant to be able to sign in, keep the **Accounts in this directory only** checkbox selected. 
 
-1. In **Redirect URI (optional)**, select **Public client/native (mobile & desktop)**, and then enter **vcclient://openid**.
+1. In **Redirect URI (optional)**, select **Public client/native (mobile & desktop)**, and then enter **vcclient://openid/**.
  
 If you want to be able to test what claims are in the Azure Active Directory ID token, do the following:
 
@@ -171,7 +171,7 @@ Claims must exist in the returned identity provider so that they can successfull
 
 If the claims don't exist, there's no value in the issued verifiable credential. Most OIDC identity providers don't issue a claim in an ID token if the claim has a null value in your profile. Be sure to include the claim in the ID token definition, and ensure that you've entered a value for the claim in your user profile.
 
-**For Azure Active Directory**: To configure the claims to include in your token, see [Provide optional claims to your app](../../active-directory/develop/active-directory-optional-claims.md). The configuration is per application, so this configuration should be for the app that has the application ID specified in the client ID in the rules definition.
+**For Azure Active Directory**: To configure the claims to include in your token, see [Provide optional claims to your app](../develop/optional-claims.md). The configuration is per application, so this configuration should be for the app that has the application ID specified in the client ID in the rules definition.
 
 To match the display and rules definitions, you should make your application's optionalClaims JSON look like the following:
 

@@ -4,13 +4,14 @@ description: This article describes how you can manage Azure AD enabled roles to
 author: achudnovskij
 ms.author: anchudno
 ms.reviewer: maghan
-ms.date: 10/12/2022 
+ms.date: 11/04/2022
 ms.service: postgresql
 ms.subservice: flexible-server
+ms.custom: devx-track-arm-template
 ms.topic: how-to
 ---
 
-# Manage Azure Active Directory roles in Azure Database for PostgreSQL - Flexible Server Preview
+# Manage Azure Active Directory roles in Azure Database for PostgreSQL - Flexible Server 
 
 [!INCLUDE [applies-to-postgresql-Flexible-server](../includes/applies-to-postgresql-Flexible-server.md)]
 
@@ -20,17 +21,14 @@ This article describes how you can create an Azure Active Directory (Azure AD) e
 > This guide assumes you already enabled Azure Active Directory authentication on your PostgreSQL Flexible server.
 > See [How to Configure Azure AD Authentication](./how-to-configure-sign-in-azure-ad-authentication.md)
 
-> [!NOTE]
-> Azure Active Directory Authentication for PostgreSQL Flexible Server is currently in preview.
-
 If you like to learn about how to create and manage Azure subscription users and their privileges, you can visit the [Azure role-based access control (Azure RBAC) article](../../role-based-access-control/built-in-roles.md) or review [how to customize roles](../../role-based-access-control/custom-roles.md).
 
 ## Create or Delete Azure AD administrators using Azure portal or Azure Resource Manager (ARM) API
 
 1. Open **Authentication** page for your Azure Database for PostgreSQL Flexible Server in Azure portal
-2. To add an administrator - select **Add Azure AD Admin**  and select a user, group, application or a managed identity from the current Azure AD tenant.
-3. To remove an administrator - select **Delete** icon for the one to remove.
-4. Select **Save** and wait for provisioning operation to completed.
+1. To add an administrator - select **Add Azure AD Admin**  and select a user, group, application or a managed identity from the current Azure AD tenant.
+1. To remove an administrator - select **Delete** icon for the one to remove.
+1. Select **Save** and wait for provisioning operation to completed.
 
 > [!div class="mx-imgBorder"]
 > :::image type="content" source="./media/how-to-manage-azure-ad-users/add-aad-principal-via-portal.png" alt-text="Screenshot of managing Azure AD administrators via portal.":::
@@ -56,16 +54,19 @@ Each PostgreSQL database role can be mapped to one of the following Azure AD obj
 ### List Azure AD roles using SQL
 
 ```sql
-select * from pgaadauth_list_principals(isAdmin);
+select * from pgaadauth_list_principals(true);
 ```
 
 **Parameters:**
-- *isAdmin* - Boolean flag if the function should only return Admin users, or all users.
+- *true*  -will return Admin users.
+- *false* -will return all AAD user both AAD admins and Non AAD admins.
 
 ## Create a role using Azure AD principal name
 
 ```sql
-select * from pgaadauth_create_principal('mary@contoso.com', false, false);
+select * from pgaadauth_create_principal('<roleName>', <isAdmin>, <isMfa>);
+
+For example: select * from pgaadauth_create_principal('mary@contoso.com', false, false);
 ```
 
 **Parameters:**
@@ -78,7 +79,9 @@ select * from pgaadauth_create_principal('mary@contoso.com', false, false);
 ## Create a role using Azure AD object identifier
 
 ```sql
-select * from pgaadauth_create_principal_with_oid('accounting_application', '00000000-0000-0000-0000-000000000000', 'service', false, false);
+select * from pgaadauth_create_principal_with_oid('<roleName>', '<objectId>', '<objectType>', <isAdmin>, <isMfa>);
+
+For example: select * from pgaadauth_create_principal_with_oid('accounting_application', '00000000-0000-0000-0000-000000000000', 'service', false, false);
 ```
 
 **Parameters:**
@@ -86,23 +89,26 @@ select * from pgaadauth_create_principal_with_oid('accounting_application', '000
 - *objectId* - Unique object identifier of the Azure AD object:
    - For **Users**, **Groups** and **Managed Identities** the ObjectId can be found by searching for the object name in Azure AD page in Azure portal. [See this guide as example](/partner-center/find-ids-and-domain-names)
    - For **Applications**, Objectid of the corresponding **Service Principal** must be used. In Azure portal the required ObjectId can be found on **Enterprise Applications** page.
-- *objectType* - Type of the Azure AD object to link to this role.
+- *objectType* - Type of the Azure AD object to link to this role: service, user, group.
 - *isAdmin* - Set to **true** if when creating an admin user and **false** for a regular user. Admin user created this way has the same privileges as one created via portal or API.
 - *isMfa* - Flag if Multi Factor Authentication must be enforced for this role.
 
 ## Enable Azure AD authentication for an existing PostgreSQL role using SQL
 
-Azure Database for PostgreSQL Flexible Servers uses Security Labels associated with database roles to store Azure AD mapping. During preview, we don't provide a function to associate existing Azure AD roles.
+Azure Database for PostgreSQL Flexible Servers uses Security Labels associated with database roles to store Azure AD mapping.
 
 You can use the following SQL to assign security label:
 
 ```sql
-SECURITY LABEL for "pgaadauth" on role "<roleName>" is 'aadauth,oid=<objectId>'
+SECURITY LABEL for "pgaadauth" on role "<roleName>" is 'aadauth,oid=<objectId>,type=<user|group|service>,admin';
 ```
 
 **Parameters:**
 - *roleName* - Name of an existing PostgreSQL role to which Azure AD authentication needs to be enabled.
 - *objectId* - Unique object identifier of the Azure AD object.
+- *user* - End user principals.
+- *service* - Applications or Managed Identities connecting under their own service credentials.
+- *group* - Name of Azure AD Group.
 
 ## Next steps
 

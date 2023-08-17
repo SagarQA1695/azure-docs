@@ -9,9 +9,9 @@ ms.author: tchladek
 ms.date: 06/30/2021
 ms.topic: quickstart
 ms.service: azure-communication-services
-ms.subservice: identity
+ms.subservice: teams-interop
 zone_pivot_groups: acs-js-csharp-java-python
-ms.custom: mode-other
+ms.custom: mode-other, devx-track-extended-java, devx-track-js, devx-track-python, has-azure-ad-ps-ref
 ---
 # Quickstart: Set up and manage access tokens for Teams users
 
@@ -66,7 +66,7 @@ The application must declare Teams.ManageCalls and Teams.ManageChats permissions
 1. Navigate to your Azure AD app in the Azure portal and select **API permissions**
 1. Select **Add Permissions**
 1. In the **Add Permissions** menu, select **Azure Communication Services**
-1. Select the permissions **Teams.ManageCalls** and **Teams.ManageCalls**, then select **Add permissions**
+1. Select the permissions **Teams.ManageCalls** and **Teams.ManageChats**, then select **Add permissions**
 
 ![Add Teams.ManageCalls and Teams.ManageChats permission to the Azure Active Directory application created in previous step.](./media/active-directory-permissions.png)
 
@@ -181,14 +181,13 @@ In this quickstart, you learned how to:
 
 
 > [!div class="nextstepaction"]
+> [Build trusted authentication service for Teams users](../samples/trusted-auth-sample.md)
 > [Make a call as a Teams users to a Teams user](../quickstarts/voice-video-calling/get-started-with-voice-video-calling-custom-teams-client.md)
-> [Check use cases for communication as a Teams user](../concepts/interop/custom-teams-endpoint-use-cases.md)
 
 Learn about the following concepts:
 
+- [Use cases for communication as a Teams user](../concepts/interop/custom-teams-endpoint-use-cases.md)
 - [Azure Communication Services support Teams identities](../concepts/teams-endpoint.md)
 - [Teams interoperability](../concepts/teams-interop.md)
 - [Single-tenant and multi-tenant authentication for Teams users](../concepts/interop/custom-teams-endpoint-authentication-overview.md)
 - [Create and manage Communication access tokens for Teams users in a single-page application (SPA)](https://github.com/Azure-Samples/communication-services-javascript-quickstarts/tree/main/manage-teams-identity-spa)
-
-

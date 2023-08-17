@@ -1,12 +1,12 @@
 ---
-title: azcopy copy| Microsoft Docs
+title: azcopy copy
 description: This article provides reference information for the azcopy copy command.
 author: normesta
-ms.service: storage
+ms.service: azure-storage
 ms.topic: reference
-ms.date: 10/22/2022
+ms.date: 11/08/2022
 ms.author: normesta
-ms.subservice: common
+ms.subservice: storage-common-concepts
 ms.reviewer: zezha-msft
 ---
 
@@ -23,6 +23,7 @@ Copies source data to a destination location. The supported directions are:
 - local <-> Azure Files (Share/directory SAS authentication)
 - local <-> Azure Data Lake Storage Gen2 (SAS, OAuth, or SharedKey authentication)
 - Azure Blob (SAS or public) -> Azure Blob (SAS or OAuth authentication)
+- Azure Blob (SAS or OAuth authentication) -> Azure Blob (SAS or OAuth authentication) - See [Guidelines](./storage-use-azcopy-blobs-copy.md#guidelines).
 - Azure Blob (SAS or public) -> Azure Files (SAS)
 - Azure Files (SAS) -> Azure Files (SAS)
 - Azure Files (SAS) -> Azure Blob (SAS or OAuth authentication)
@@ -252,7 +253,7 @@ Copy a subset of buckets by using a wildcard symbol (*) in the bucket name from 
 
 `--disable-auto-decoding`    False by default to enable automatic decoding of illegal chars on Windows. Can be set to true to disable automatic decoding.
 
-`--dry-run`    Prints the file paths that would be copied by this command. This flag doesn't copy the actual files.
+`--dry-run`    Prints the file paths that would be copied by this command. This flag doesn't copy the actual files. The --overwrite flag has no effect. If you set the --overwrite flag to false, files in the source directory are listed even if those files exist in the destination directory.
 
 `--exclude-attributes`    (string)    (Windows only) Exclude files whose attributes match the attribute list. For example: A;S;R
 

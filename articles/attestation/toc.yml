@@ -7,6 +7,8 @@
 - name: Quickstarts
   expanded: true
   items:
+  - name: Terraform
+    href: quickstart-terraform.md
   - name: Bicep
     displayName: Resource Manager, ARM
     href: quickstart-bicep.md
@@ -23,6 +25,8 @@
   items:
   - name: Authoring an attestation policy
     href: author-sign-policy.md
+  - name: Enforce custom TCB baseline for SGX attestation
+    href: custom-tcb-baseline-enforcement.md
   - name: Create a Private Endpoint - PowerShell
     href: private-endpoint-powershell.md
   - name: Azure Diagnostic Monitoring
