@@ -3,10 +3,8 @@ title: Configure CI/CD with GitHub Actions
 description: Learn how to deploy your code to Azure App Service from a CI/CD pipeline with GitHub Actions. Customize the build tasks and execute complex deployments.
 ms.topic: article
 ms.date: 12/14/2021
-ms.author: jafreebe
 ms.reviewer: ushan
-ms.custom: devx-track-python, github-actions-azure, devx-track-azurecli
-
+ms.custom: github-actions-azure, devx-track-azurecli
 ---
 
 # Deploy to App Service using GitHub Actions
@@ -142,7 +140,7 @@ OpenID Connect is an authentication method that uses short-lived tokens. Setting
     ("credential.json" contains the following content)
     {
         "name": "<CREDENTIAL-NAME>",
-        "issuer": "https://token.actions.githubusercontent.com/",
+        "issuer": "https://token.actions.githubusercontent.com",
         "subject": "repo:organization/repository:ref:refs/heads/main",
         "description": "Testing",
         "audiences": [
@@ -290,7 +288,7 @@ The environment variable `AZURE_WEBAPP_PACKAGE_PATH` sets the path to your web a
   run: |
     dotnet restore
     dotnet build --configuration Release
-    dotnet publish -c Release -o '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/myapp' 
+    dotnet publish -c Release --property:PublishDir='${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/myapp' 
 ```
 **ASP.NET**
 
@@ -384,7 +382,7 @@ jobs:
         run: |
           dotnet restore
           dotnet build --configuration Release
-          dotnet publish -c Release -o '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/myapp' 
+          dotnet publish -c Release --property:PublishDir='${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/myapp' 
           
       # Deploy to Azure Web apps
       - name: 'Run Azure webapp deploy action using publish profile credentials'
@@ -599,10 +597,10 @@ jobs:
         run: |
           dotnet restore
           dotnet build --configuration Release
-          dotnet publish -c Release -o '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/myapp' 
+          dotnet publish -c Release --property:PublishDir='${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/myapp' 
           
       # Deploy to Azure Web apps
-      - name: 'Run Azure webapp deploy action using publish profile credentials'
+      - name: 'Run Azure webapp deploy action using Azure Credentials'
         uses: azure/webapps-deploy@v2
         with: 
           app-name: ${{ env.AZURE_WEBAPP_NAME }} # Replace with your app name
@@ -652,7 +650,7 @@ jobs:
     - name: Run MSBuild
       run: msbuild .\SampleWebApplication.sln
        
-    - name: 'Run Azure webapp deploy action using publish profile credentials'
+    - name: 'Run Azure webapp deploy action using Azure Credentials'
       uses: azure/webapps-deploy@v2
       with: 
         app-name: ${{ env.AZURE_WEBAPP_NAME }} # Replace with your app name
@@ -715,6 +713,7 @@ name: Node.js
 
 env:
   AZURE_WEBAPP_NAME: my-app   # set this to your application's name
+  AZURE_WEBAPP_PACKAGE_PATH: 'my-app-path'      # set this to the path to your web app project, defaults to the repository root
   NODE_VERSION: '14.x'                # set this to the node version to use
 
 jobs:
@@ -841,7 +840,7 @@ jobs:
         run: |
           dotnet restore
           dotnet build --configuration Release
-          dotnet publish -c Release -o '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/myapp' 
+          dotnet publish -c Release --property:PublishDir='${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/myapp' 
           
       # Deploy to Azure Web apps
       - name: 'Run Azure webapp deploy action using publish profile credentials'
@@ -974,6 +973,7 @@ name: Node.js
 
 env:
   AZURE_WEBAPP_NAME: my-app   # set this to your application's name
+  AZURE_WEBAPP_PACKAGE_PATH: 'my-app-path'      # set this to the path to your web app project, defaults to the repository root
   NODE_VERSION: '14.x'                # set this to the node version to use
 
 jobs:

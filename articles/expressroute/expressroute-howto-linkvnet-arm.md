@@ -14,7 +14,7 @@ ms.custom: seodec18, devx-track-azurepowershell, template-tutorial
 > [!div class="op_single_selector"]
 > * [Azure portal](expressroute-howto-linkvnet-portal-resource-manager.md)
 > * [PowerShell](expressroute-howto-linkvnet-arm.md)
-> * [Azure CLI](howto-linkvnet-cli.md)
+> * [Azure CLI](expressroute-howto-linkvnet-cli.md)
 > * [PowerShell (classic)](expressroute-howto-linkvnet-classic.md)
 >
 
@@ -81,6 +81,15 @@ Each of the smaller clouds within the large cloud is used to represent subscript
 The 'circuit owner' is an authorized Power User of the ExpressRoute circuit resource. The circuit owner can create authorizations that can be redeemed by 'circuit users'. Circuit users are owners of virtual network gateways that aren't within the same subscription as the ExpressRoute circuit. Circuit users can redeem authorizations (one authorization per virtual network).
 
 The circuit owner has the power to modify and revoke authorizations at any time. Revoking an authorization results in all link connections being deleted from the subscription whose access was revoked.
+
+  > [!NOTE]
+  > Circuit owner is not an built-in RBAC role or defined on the ExpressRoute resource.
+  > The definition of the circuit owner is any role with the following access:
+  > - Microsoft.Network/expressRouteCircuits/authorizations/write
+  > - Microsoft.Network/expressRouteCircuits/authorizations/read
+  > - Microsoft.Network/expressRouteCircuits/authorizations/delete
+  > 
+  > This includes the built-in roles such as Contributor, Owner and Network Contributor. Detailed description for the different [built-in roles](../role-based-access-control/built-in-roles.md).
 
 ### Circuit owner operations
 
@@ -215,7 +224,11 @@ Register-AzProviderFeature -FeatureName ExpressRoutePrivateEndpointGatewayBypass
 
 > [!NOTE]
 > You can use [Connection Monitor](how-to-configure-connection-monitor.md) to verify that your traffic is reaching the destination using FastPath.
->
+> 
+
+> [!NOTE]
+> FastPath and Private Link feature onboarding requires time to be enabled after request. You can expect about two weeks of delay until request is completed, so we encourage you to plan your deployment in advance with these timelines into consideration.
+> 
 
 ## Enroll in ExpressRoute FastPath features (preview)
 
