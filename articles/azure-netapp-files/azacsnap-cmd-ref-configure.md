@@ -12,7 +12,7 @@ ms.service: azure-netapp-files
 ms.workload: storage
 ms.tgt_pltfrm: na
 ms.topic: reference
-ms.date: 08/19/2022
+ms.date: 08/21/2023
 ms.author: phjensen
 ---
 
@@ -105,7 +105,7 @@ When you add an *SAP HANA database* to the configuration, the following values a
 
 [Azure Backup](../backup/index.yml) service provides an alternate backup tool for SAP HANA, where database and log backups are streamed into the 
 Azure Backup Service.  Some customers would like to combine the streaming backint-based backups with regular snapshot-based backups.  However, backint-based 
-backups block other methods of backup, such as using a files-based backup or a storage snapshot-based backup (for example, AzAcSnap).  Guidance is provided on the Azure Backup site on how to [Run SAP HANA Studio backup on a database with Azure Backup enabled](../backup/backup-azure-sap-hana-database.md#run-sap-hana-studio-backup-on-a-database-with-azure-backup-enabled). 
+backups block other methods of backup, such as using a files-based backup or a storage snapshot-based backup (for example, AzAcSnap).  Guidance is provided on the Azure Backup site on how to [Run SAP HANA native clients backup on a database with Azure Backup enabled](../backup/backup-azure-sap-hana-database.md#run-sap-hana-native-clients-backup-on-a-database-with-azure-backup). 
 
 The process described in the Azure Backup documentation has been implemented with AzAcSnap to automatically do the following steps:
 
@@ -118,7 +118,7 @@ The process described in the Azure Backup documentation has been implemented wit
 1. re-enable the backint-based backup.
 
 By default this option is disabled, but it can be enabled by running `azacsnap -c configure –configuration edit` and answering ‘y’ (yes) to the question 
-“Do you need AzAcSnap to automatically disable/enable backint during snapshot? (y/n) [n]”.  Editing the configuration as described will set the 
+“Do you need AzAcSnap to automatically disable/enable backint during snapshot? (y/n) [n]”.  Editing the configuration as described sets the 
 autoDisableEnableBackint value to true in the JSON configuration file (for example, `azacsnap.json`).  It's also possible to change this value by editing 
 the configuration file directly.
 
@@ -129,6 +129,18 @@ When you add an *Oracle database* to the configuration, the following values are
 - **Oracle DB Server's Address** = The database server hostname or IP address.
 - **SID** = The database System ID.
 - **Oracle Connect String** = The Connect String used by `sqlplus` to connect to Oracle and enable/disable backup mode.
+
+# [IBM Db2](#tab/db2)
+
+When adding a *Db2 database* to the configuration, the following values are required:
+
+- **Db2 Server's Address** = The database server hostname or IP address.
+  - If Db2 Server Address (serverAddress) matches '127.0.0.1' or 'localhost' then azacsnap executes all `db2` commands locally (refer "Local connectivity").  Otherwise AzAcSnap uses the serverAddress as the host to connect to via SSH using the "Instance User" as the SSH login name.  Remote access via SSH can be validated with `ssh <instanceUser>@<serverAddress>` replacing instanceUser and serverAddress with the respective values (refer "Remote connectivity").
+- **Instance User** = The database System Instance User.
+- **SID** = The database System ID.
+
+> [!IMPORTANT]
+> Setting the Db2 Server Address (serverAddress) aligns directly with the method used to communicate with Db2, ensure this is set correctly as described.
 
 ---
 
@@ -156,9 +168,13 @@ When you add *HLI Storage* to a database section, the following values are requi
 
 When you add *ANF Storage* to a database section, the following values are required:
 
-- **Service Principal Authentication filename** = the `authfile.json` file generated in the Cloud Shell when configuring
+- **Service Principal Authentication filename** (JSON field: authFile)
+  - To use a System Managed Identity, leave empty with no value and press [Enter] to go to the next field.
+    - An example to set up an Azure System Managed Identity can be found on the [AzAcSnap Installation](azacsnap-installation.md).
+  - To use a Service Principal, use name of the authentication file (for example, `authfile.json`) generated in the Cloud Shell when configuring
     communication with Azure NetApp Files storage.
-- **Full ANF Storage Volume Resource ID** = the full Resource ID of the Volume being snapshot.  This string can be retrieved from:
+    - An example to set up a Service Principal can be found on the [AzAcSnap Installation](azacsnap-installation.md).
+- **Full ANF Storage Volume Resource ID** (JSON field: resourceId) = the full Resource ID of the Volume being snapshot.  This string can be retrieved from:
     Azure portal –> ANF –> Volume –> Settings/Properties –> Resource ID
 
 ---
@@ -172,7 +188,7 @@ For **Azure Large Instance** system, this information is provided by Microsoft S
 is made available in an Excel file that is provided during handover. Open a service request if you
 need to be provided this information again.
 
-The following output is an example configuration file only and is the content of the file as generated by the configuration session above, update all the values accordingly.
+The following output is an example configuration file only and is the content of the file as generated by the configuration example, update all the values accordingly.
 
 ```bash
 cat azacsnap.json

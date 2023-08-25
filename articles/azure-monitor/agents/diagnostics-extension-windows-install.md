@@ -4,9 +4,9 @@ description: Learn about installing and configuring the Azure Diagnostics extens
 services: azure-monitor
 author: bwren
 ms.topic: conceptual
-ms.date: 07/12/2022
+ms.date: 07/19/2023
 ms.author: bwren 
-ms.custom: devx-track-azurepowershell, devx-track-azurecli 
+ms.custom: devx-track-azurecli
 ms.devlang: azurecli
 ms.reviewer: luki
 ---
@@ -95,7 +95,7 @@ The protected settings are defined in the [PrivateConfig element](diagnostics-ex
 {
     "storageAccountName": "mystorageaccount",
     "storageAccountKey": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-    "storageAccountEndPoint": "https://mystorageaccount.blob.core.windows.net"
+    "storageAccountEndPoint": "https://core.windows.net"
 }
 ```
 
@@ -132,7 +132,7 @@ The public settings are defined in the [Public element](diagnostics-extension-sc
 
 ## PowerShell deployment
 
-PowerShell can be used to deploy the Azure Diagnostics extension to an existing virtual machine by using [Set-AzVMDiagnosticsExtension](/powershell/module/servicemanagement/azure.service/set-azurevmdiagnosticsextension), as in the following example:
+PowerShell can be used to deploy the Azure Diagnostics extension to an existing virtual machine by using [Set-AzVMDiagnosticsExtension](/powershell/module/servicemanagement/azure/set-azurevmdiagnosticsextension), as in the following example:
 
 ```powershell
 Set-AzVMDiagnosticsExtension -ResourceGroupName "myvmresourcegroup" `
@@ -179,7 +179,7 @@ The following minimal example of a configuration file enables collection of diag
     "PrivateConfig": {
         "storageAccountName": "mystorageaccount",
         "storageAccountKey": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-        "storageAccountEndPoint": "https://mystorageaccount.blob.core.windows.net"
+        "storageAccountEndPoint": "https://core.windows.net"
     }
 }
 ```

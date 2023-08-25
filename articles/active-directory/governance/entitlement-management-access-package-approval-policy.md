@@ -1,6 +1,6 @@
 ---
-title: Change approval settings for an access package in Azure AD entitlement management - Azure Active Directory
-description: Learn how to change approval and requestor information settings for an access package in Azure Active Directory entitlement management.
+title: Change approval settings for an access package in entitlement management - Microsoft Entra
+description: Learn how to change approval and requestor information settings for an access package in entitlement management.
 services: active-directory
 documentationCenter: ''
 author: owinfreyATL
@@ -11,7 +11,7 @@ ms.workload: identity
 ms.tgt_pltfrm: na
 ms.topic: how-to
 ms.subservice: compliance
-ms.date: 05/16/2021
+ms.date: 05/31/2023
 ms.author: owinfrey
 ms.reviewer: 
 ms.collection: M365-identity-device-management
@@ -20,9 +20,11 @@ ms.collection: M365-identity-device-management
 #Customer intent: As an administrator, I want detailed information about how I can edit an access package so that requestors have the resources they need to perform their job.
 
 ---
-# Change approval and requestor information settings for an access package in Azure AD entitlement management
+# Change approval and requestor information settings for an access package in entitlement management
 
-As an access package manager, you can change the approval and requestor information settings for an access package at any time by editing an existing policy or adding a new policy for requesting access.
+Each access package must have one or more access package assignment policies, before a user can be assigned access.  When an access package is created in the Microsoft Entra admin center, the Microsoft Entra admin center automatically creates the first access package assignment policy for that access package.  The policy determines who can request access, and who if anyone must approve access.
+
+As an access package manager, you can change the approval and requestor information settings for an access package at any time by editing an existing policy or adding a new additional policy for requesting access.
 
 This article describes how to change the approval and requestor information settings for an existing access package, through an access package's policy.
 
@@ -60,7 +62,7 @@ Follow these steps to specify the approval settings for requests for the access 
 
 1. Go to the **Request** tab.
 
-1. To require approval for requests from the selected users, set the **Require approval** toggle to **Yes**. Or, to have requests automatically approved, set the toggle to **No**.
+1. To require approval for requests from the selected users, set the **Require approval** toggle to **Yes**. Or, to have requests automatically approved, set the toggle to **No**. If the policy allows external users from outside your organization to request access, you should require approval, so there is oversight on who is being added to your organization's directory.
 
 1. To require users to provide a justification to request the access package, set the **Require requestor justification** toggle to **Yes**.
     
@@ -85,7 +87,7 @@ Use the following steps to add approvers after selecting how many stages you req
     
 1. If you selected **Manager** as the first approver, select **Add fallback to select one, or more users or groups in your directory to be a fallback approver. Fallback approvers receive the request if entitlement management can't find the manager for the user requesting access.
 
-    The manager is found by entitlement management using the **Manager** attribute. The attribute is in the user's profile in Azure AD. For more information, see [Add or update a user's profile information using Azure Active Directory](../fundamentals/active-directory-users-profile-azure-portal.md).
+    The manager is found by entitlement management using the **Manager** attribute. The attribute is in the user's profile in Azure AD. For more information, see [Add or update a user's profile information using Azure Active Directory](../fundamentals/how-to-manage-user-profile-info.md).
 
 1. If you selected **Choose specific approvers**, select **Add approvers** to choose one, or more, users or groups in your directory to be approvers.
 
@@ -155,7 +157,7 @@ For example, if you listed Alice and Bob as the first stage approver(s), list Ca
 
 1. In the **Forward to alternate approver(s) after how many days** box, put in the number of days the approvers have to approve or deny a request. If no approvers have approved or denied the request before the request duration, the request expires (timeout), and the user will have to submit another request for the access package. 
 
-    Requests can only be forwarded to alternate approvers a day after the request duration reaches half-life, and the decision of the main approver(s) has to time out after at least four days. If the request time-out is less or equal than three, there isn't enough time to forward the request to alternate approver(s). In this example, the duration of the request is 14 days. So, the request duration reaches half-life at day 7. So the request can't be forwarded earlier than day 8. Also, requests can't be forwarded on the last day of the request duration. So in the example, the latest the request can be forwarded is day 13.
+    Requests can only be forwarded to alternate approvers a day after the request has been initiated. To use alternate approval, the request time-out needs to be at least 4 days.
 
 ## Enable requests
 
@@ -171,7 +173,7 @@ For example, if you listed Alice and Bob as the first stage approver(s), list Ca
 
 ## Collect additional requestor information for approval
 
-In order to make sure users are getting access to the right access packages, you can require requestors to answer custom text field or Multiple Choice questions at the time of request. There's a limit of 20 questions per policy and a limit of 25 answers for Multiple Choice questions. The questions will then be shown to approvers to help them make a decision.
+In order to make sure users are getting access to the right access packages, you can require requestors to answer custom text field or Multiple Choice questions at the time of request. The questions will then be shown to approvers to help them make a decision.
 
 1. Go to the **Requestor information** tab and select the **Questions** sub tab.
  
@@ -202,6 +204,7 @@ In order to make sure users are getting access to the right access packages, you
 
 1. If you would like to include a syntax check for text answers to questions, you can also specify a custom regex pattern.  
     :::image type="content" source="media/entitlement-management-access-package-approval-policy/add-regex-localization.png" alt-text="Screenshot of the add regex localization policy." lightbox="media/entitlement-management-access-package-approval-policy/add-regex-localization.png":::
+ If you would like to include a syntax check for text answers to questions, you can also specify a custom regex pattern.
 1. To require requestors to answer this question when requesting access to an access package, select the check box under **Required**.
 
 1. Fill out the remaining tabs (for example, Lifecycle) based on your needs.

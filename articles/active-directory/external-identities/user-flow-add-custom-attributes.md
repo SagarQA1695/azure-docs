@@ -1,5 +1,5 @@
 ---
-title: Add custom attributes to self-service sign-up flows - Azure AD
+title: Add custom attributes to self-service sign-up flows
 description: Learn about customizing the attributes for your self-service sign-up user flows.
 services: active-directory
 author: msmimart
@@ -8,13 +8,18 @@ manager: celestedg
 ms.service: active-directory
 ms.subservice: B2B
 ms.topic: how-to
-ms.date: 03/02/2021
+ms.date: 11/07/2022
 ms.author: mimart
-ms.custom: engagement-fy23, "it-pro"
+ms.custom: engagement-fy23, it-pro
 ms.collection: M365-identity-device-management
+
+# Customer intent: As a tenant administrator, I want to create custom attributes for the self-service sign-up user flows.
 ---
 
 # Define custom attributes for user flows
+
+> [!TIP]
+> This article applies to B2B collaboration user flows. If your tenant is configured for customer identity and access management, see [Collect user attributes during sign-up](customers/how-to-define-custom-attributes.md) for customers.
 
 For each application, you might have different requirements for the information you want to collect during sign-up. Azure AD comes with a built-in set of information stored in attributes, such as Given Name, Surname, City, and Postal Code. With Azure AD, you can extend the set of attributes stored on a guest account when the external user signs up through a user flow.
 
@@ -27,6 +32,8 @@ You can create custom attributes in the Azure portal and use them in your [self-
 The `<extensions-app-id>` is specific to your tenant. To find this identifier, navigate to **Azure Active Directory** > **App registrations** > **All applications**. Search for the app that starts with "aad-extensions-app" and select it. On the app's Overview page, note the Application (client) ID.
 
 ## Create a custom attribute
+
+[!INCLUDE [portal updates](~/articles/active-directory/includes/portal-update.md)]
 
 1. Sign in to the [Azure portal](https://portal.azure.com) as an Azure AD administrator.
 2. Under **Azure services**, select **Azure Active Directory**.
@@ -53,4 +60,5 @@ Once you've created a new user using a user flow that uses the newly created cus
 
 ## Next steps
 
-[Add a self-service sign-up user flow to an app](self-service-sign-up-user-flow.md)
+- [Add a self-service sign-up user flow to an app](self-service-sign-up-user-flow.md)
+- [Customize the user flow language](user-flow-customize-language.md)

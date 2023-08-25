@@ -3,11 +3,11 @@ title: Configure LexisNexis Risk Solutions as an identity verification partner u
 description: This article shows you the steps you need to follow to configure LexisNexis as your identity verification partner
 services: active-directory
 author: barclayn
-manager: amycolonino
+manager: amycolannino
 ms.service: decentralized-identity
 ms.subservice: verifiable-credentials
 ms.topic: how-to
-ms.date: 09/1/2022
+ms.date: 01/26/2023
 ms.author: barclayn
 # Customer intent: As a developer, I'm looking for information about the open standards that are supported by Microsoft Entra Verified ID.
 ---
@@ -28,7 +28,7 @@ You can use Entra Verified ID with LexisNexis Risk Solutions to enable faster on
 
 ## Scenario description
 
-Verifiable Credentials can be used to onboard employees, students, citizens, or others to access services. For example, rather than an employee needing to go to a central office to activate an employee badge, they can use a verifiable credential to verify their identity to activate a badge that is delivered to them remotely. Rather than a citizen receiving a code they must redeem to access governmental services, they can use a VC to prove their identity and gain access. Learn more about [account onboarding](https://learn.microsoft.com/azure/active-directory/verifiable-credentials/plan-verification-solution#account-onboarding). 
+Verifiable Credentials can be used to onboard employees, students, citizens, or others to access services. For example, rather than an employee needing to go to a central office to activate an employee badge, they can use a verifiable credential to verify their identity to activate a badge that is delivered to them remotely. Rather than a citizen receiving a code they must redeem to access governmental services, they can use a VC to prove their identity and gain access. Learn more about [account onboarding](./plan-verification-solution.md#account-onboarding). 
 
 
 :::image type="content" source="media/verified-id-partner-au10tix/vc-solution-architecture-diagram.png" alt-text="Diagram of the verifiable credential solution.":::
@@ -41,7 +41,7 @@ To incorporate identity verification into your Apps using LexisNexis Verified ID
 
 As a developer you'll provide the steps below to your tenant administrator. The instructions help them obtain the verification request URL, and application body or website to request verifiable credentials from your users.
 
-1. Go to [Microsoft Entra portal -> Verified ID](https://entra.microsoft.com/#view/Microsoft_AAD_DecentralizedIdentity/ResourceOverviewBlade).
+1. Go to [Microsoft Entra admin center -> Verified ID](https://entra.microsoft.com/#view/Microsoft_AAD_DecentralizedIdentity/ResourceOverviewBlade).
     >[!Note]
     > Make sure this is the tenant you set up for Verified ID per the pre-requisites.
 1. Go to [Quickstart-> Verification Request -> Start](https://entra.microsoft.com/#view/Microsoft_AAD_DecentralizedIdentity/QuickStartVerifierBlade).
