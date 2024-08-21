@@ -30,7 +30,7 @@ Use your Microsoft Azure Active Directory account with Atlassian JIRA server to 
 To configure Azure AD integration with JIRA SAML SSO by Microsoft, you need the following items:
 
 - An Azure AD subscription. If you don't have a subscription, you can get a [free account](https://azure.microsoft.com/free/).
-- JIRA Core and Software 6.4 to 9.10.0 or JIRA Service Desk 3.0 to 4.22.1 should be installed and configured on Windows 64-bit version.
+- JIRA Core and Software 7.0 to 9.15.0 or JIRA Service Desk 3.0 to 4.22.1 should be installed and configured on Windows 64-bit version.
 - JIRA server is HTTPS enabled.
 - Note the supported versions for JIRA Plugin are mentioned in below section.
 - JIRA server is reachable on the Internet particularly to the Azure AD login page for authentication and should able to receive the token from Azure AD.
@@ -51,7 +51,7 @@ To get started, you need the following items:
 
 ## Supported versions of JIRA
 
-* JIRA Core and Software: 6.4 to 9.10.0.
+* JIRA Core and Software: 7.0 to 9.15.0.
 * JIRA Service Desk 3.0 to 4.22.1.
 * JIRA also supports 5.2. For more details, click [Microsoft Azure Active Directory single sign-on for JIRA 5.2](jira52microsoft-tutorial.md).
 
@@ -118,8 +118,8 @@ Follow these steps to enable Azure AD SSO in the Azure portal.
 	a. In the **Sign-on URL** text box, type a URL using the following pattern:
     `https://<domain:port>/plugins/servlet/saml/auth`
 
-	> [!NOTE]
-	> These values are not real. Update these values with the actual Identifier, Reply URL, and Sign-on URL. Port is optional in case it’s a named URL. These values are received during the configuration of Jira plugin, which is explained later in the tutorial.
+  > [!NOTE]
+  > These values are not real. Update these values with the actual Identifier, Reply URL, and Sign-on URL. Port is optional in case it’s a named URL. These values are received during the configuration of Jira plugin, which is explained later in the tutorial.
 
 1. On the **Set up single sign-on with SAML** page, In the **SAML Signing Certificate** section, click copy button to copy **App Federation Metadata Url** and save it on your computer.
 
@@ -145,8 +145,8 @@ Follow these steps to enable Azure AD SSO in the Azure portal.
     
    ![Screenshot showing how to review Attributes and Claims.](common/attribute-review.png)
 	
-	> [!NOTE]
-	> The SSO service provided by Microsoft Azure supports SAML authentication which is able to perform user identification using different attributes such as givenname (first name), surname (last name), email (email address), and user principal name (username). We recommend not to use email as an authentication attribute as email addresses are not always verified by Azure AD. The plugin compares the values of Atlassian username attribute with the NameID attribute in Azure AD in order to determine the valid user authentication.
+  > [!NOTE]
+  > The SSO service provided by Microsoft Azure supports SAML authentication which is able to perform user identification using different attributes such as givenname (first name), surname (last name), email (email address), and user principal name (username). We recommend not to use email as an authentication attribute as email addresses are not always verified by Azure AD. The plugin compares the values of Atlassian username attribute with the NameID attribute in Azure AD in order to determine the valid user authentication.
 
 1. If your Azure tenant has **guest users** then follow the below configuration steps:
  
@@ -162,10 +162,10 @@ Follow these steps to enable Azure AD SSO in the Azure portal.
 
 	![Screenshot for claim conditions.](./media/jiramicrosoft-tutorial/claim-conditions.png)
 
-	>[!NOTE]
-	>  Give the NameID value as `user.userprinciplename` for Members and `user.mail` for External Guests.
+  >[!NOTE]
+  >  Give the NameID value as `user.userprinciplename` for Members and `user.mail` for External Guests.
 
-	d. **Save** the changes and verify the SSO for external guest users.
+   d. **Save** the changes and verify the SSO for external guest users.
 
 ### Create an Azure AD test user
 
@@ -205,18 +205,18 @@ In this section, you'll enable B.Simon to use Azure single sign-on by granting a
 
 4. For running the JIRA reverse proxy scenario or load balancer scenario perform the following steps:
 
-	> [!NOTE]
-	> You should be configuring the server first with the below instructions and then install the plugin.
+> [!NOTE]
+> You should be configuring the server first with the below instructions and then install the plugin.
 
-	a. Add below attribute in **connector** port in **server.xml** file of JIRA server application.
+ a. Add below attribute in **connector** port in **server.xml** file of JIRA server application.
 
 	`scheme="https" proxyName="<subdomain.domain.com>" proxyPort="<proxy_port>" secure="true"`
 
-	![Screenshot shows the server dot x m l file in an editor with the new line added.](./media/jiramicrosoft-tutorial/reverseproxy1.png)
+ ![Screenshot shows the server dot x m l file in an editor with the new line added.](./media/jiramicrosoft-tutorial/reverseproxy1.png)
 
-	b. Change **Base URL** in **System Settings** according to proxy/load balancer.
+  b. Change **Base URL** in **System Settings** according to proxy/load balancer.
 
-	![Screenshot shows the Administration Settings where you can change the Base U R L.](./media/jiramicrosoft-tutorial/reverseproxy2.png)
+ ![Screenshot shows the Administration Settings where you can change the Base U R L.](./media/jiramicrosoft-tutorial/reverseproxy2.png)
 
 5. Once the plugin is installed, it appears in **User Installed** add-ons section of **Manage Add-on** section. Click **Configure** to configure the new plugin.
 
@@ -224,46 +224,50 @@ In this section, you'll enable B.Simon to use Azure single sign-on by granting a
 
 6. Perform following steps on configuration page:
 
-	![Screenshot shows the Microsoft Azure Active Directory single sign-on for Jira configuration page.](./media/jiramicrosoft-tutorial/jira-configure-addon.png)
+	![Screenshot shows the Microsoft Azure Active Directory single sign-on for Jira configuration page.](https://github.com/SagarQA1695/azure-docs/blob/main/media/SSO_Plugin_Configuration_Page.png)
+       
+> [!NOTE]
+> Ensure that there is only one certificate mapped against the app so that there is no error in resolving the metadata. If there are multiple certificates, upon resolving the metadata, admin gets an error.
 
-	> [!TIP]
-	> Ensure that there is only one certificate mapped against the app so that there is no error in resolving the metadata. If there are multiple certificates, upon resolving the metadata, admin gets an error.
+ a.  In the **Metadata URL** textbox, paste **App Federation Metadata Url** value which you have copied from the Azure portal and click the **Resolve** button. It reads the IdP metadata URL and populates all the fields information.
 
-	a. In the **Metadata URL** textbox, paste **App Federation Metadata Url** value which you have copied from the Azure portal and click the **Resolve** button. It reads the IdP metadata URL and populates all the fields information.
+ b.  Copy the **Identifier, Reply URL and Sign on URL** values and paste them in **Identifier, Reply URL and Sign on URL** textboxes respectively in **JIRA SAML SSO by Microsoft Domain and URLs** section on Azure portal.
 
-	b. Copy the **Identifier, Reply URL and Sign on URL** values and paste them in **Identifier, Reply URL and Sign on URL** textboxes respectively in **JIRA SAML SSO by Microsoft Domain and URLs** section on Azure portal.
-
-	c. In **Login Button Name** type the name of button your organization wants the users to see on login screen.
+ c.  In **Login Button Name** type the name of button your organization wants the users to see on login screen.
 	
-	d. In **Login Button Description** type the description of button your organization wants the users to see on login screen.
+ d.  In **Login Button Description** type the description of button your organization wants the users to see on login screen.
 
-	e. In **SAML User ID Locations** select either **User ID is in the NameIdentifier element of the Subject statement** or **User ID is in an Attribute element**.  This ID has to be the JIRA user ID. If the user ID is not matched, then system will not allow users to sign in.
+ e.  In **Default Group** Select your organization Default Group to assign to new users (Default groups facilitate organized access rights to new user account).
 
-	> [!Note]
-	> Default SAML User ID location is Name Identifier. You can change this to an attribute option and enter the appropriate attribute name.
+ f.  In **SAML User ID Locations** select either **User ID is in the NameIdentifier element of the Subject statement** or **User ID is in an Attribute element**.  This ID has to be the JIRA user ID. If the user ID is not matched, then system will not allow users to sign in.
 
-	f. If you select **User ID is in an Attribute element** option, then in **Attribute name** textbox type the name of the attribute where User ID is expected.
+   > [!Note]
+   > Default SAML User ID location is Name Identifier. You can change this to an attribute option and enter the appropriate attribute name.
 
-	g. If you are using the federated domain (like ADFS etc.) with Azure AD, then click on the **Enable Home Realm Discovery** option and configure the **Domain Name**.
+ g.  If you select **User ID is in an Attribute element** option, then in **Attribute name** textbox type the name of the attribute where User ID is expected.
 
-	h. In **Domain Name** type the domain name here in case of the ADFS-based login.
+ h.  In **Auto-create User** feature (JIT User Provisioning): It automates user account creation in authorized web applications, without the need for manual provisioning. This reduces administrative workload and increases productivity. Because JIT relies on AzureAD’s login response enter the SAML-response attribute values, which includes the user's email address, last name and first name.
 
-	i. Check **Enable Single Sign out** if you wish to sign out from Azure AD when a user sign out from JIRA.
+ i.  If you are using the federated domain (like ADFS etc.) with Azure AD, then click on the **Enable Home Realm Discovery** option and configure the **Domain Name**.
+
+ j.  In **Domain Name** type the domain name here in case of the ADFS-based login.
+
+ k.  Check **Enable Single Sign out** if you wish to sign out from Azure AD when a user sign out from JIRA.
 	
-	j. Enable **Force Azure Login** checkbox, if you wish to sign in through Azure AD credentials only.
+ l.  Enable **Force Azure Login** checkbox, if you wish to sign in through Azure AD credentials only.
 	
-	> [!Note]
-	> To enable the default login form for admin login on login page when force azure login is enabled, add the query parameter in the browser URL.
-	> `https://<domain:port>/login.jsp?force_azure_login=false`
+   > [!Note]
+   > To enable the default login form for admin login on login page when force azure login is enabled, add the query parameter in the browser URL.
+   > `https://<domain:port>/login.jsp?force_azure_login=false`
 
-	k. **Enable Use of Application Proxy** checkbox, if you have configured your on-premises atlassian application in an App Proxy setup.
+ m.  Enable Use of **Application Proxy** checkbox, if you have configured your on-premises atlassian application in an App Proxy setup.
 
-	* For App proxy setup , follow the steps on the [Azure AD App Proxy Documentation](../app-proxy/what-is-application-proxy.md).
+* For App proxy setup , follow the steps on the [Azure AD App Proxy Documentation](../app-proxy/what-is-application-proxy.md).
 
-	l. Click **Save** button to save the settings.
+ n.  Click **Save** button to save the settings.
 
-	> [!NOTE]
-	> For more information about installation and troubleshooting, visit [MS JIRA SSO Connector Admin Guide](./ms-confluence-jira-plugin-adminguide.md). There is also an [FAQ](./ms-confluence-jira-plugin-adminguide.md) for your assistance.
+ > [!NOTE]
+ > For more information about installation and troubleshooting, visit [MS JIRA SSO Connector Admin Guide](./ms-confluence-jira-plugin-adminguide.md). There is also an [FAQ](./ms-confluence-jira-plugin-adminguide.md) for your assistance.
 
 ### Create JIRA SAML SSO by Microsoft test user
 
