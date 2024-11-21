@@ -6,7 +6,7 @@ ms.author: dbrittain
 ms.devlang: java
 ms.topic: tutorial
 ms.date: 5/27/2022
-ms.custom: mvc
+ms.custom: mvc, devx-track-azurecli, devx-track-extended-java
 ---
 
 # Tutorial: Build a Quarkus web app with Azure App Service on Linux and PostgreSQL
@@ -102,8 +102,8 @@ Follow these steps to create an Azure PostgreSQL database in your subscription. 
         --resource-group $RESOURCE_GROUP \
         --name $DB_SERVER_NAME \
         --location $LOCATION \
-        --admin-user $DB_USERNAME \
-        --admin-password $DB_PASSWORD \
+        --admin-user $ADMIN_USERNAME \
+        --admin-password $ADMIN_PASSWORD \
         --sku-name GP_Gen5_2
     ```
 
@@ -207,7 +207,7 @@ You can access Quarkus app locally by typing the `w` character into the console,
 If you see exceptions in the output, double-check that the configuration values for `%dev` are correct.
 
 > [!TIP]
-> You can enable continuous testing by typing `r` into the terminal. This will continously run tests as you develop the application. You can also use Quarkus' *Live Coding* to see changes to your Java or `pom.xml` immediately. Simlply edit code and reload the browser.
+> You can enable continuous testing by typing `r` into the terminal. This will continuously run tests as you develop the application. You can also use Quarkus' *Live Coding* to see changes to your Java or `pom.xml` immediately. Simlply edit code and reload the browser.
 
 When you're done testing locally, shut down the application with `CTRL-C` or type `q` in the terminal.
 
@@ -303,3 +303,8 @@ Learn more about running Java apps on App Service on Linux in the developer guid
 
 > [!div class="nextstepaction"] 
 > [Java in App Service Linux dev guide](configure-language-java.md?pivots=platform-linux)
+
+Learn how to secure your app with a custom domain and certificate.
+
+> [!div class="nextstepaction"]
+> [Secure with custom domain and certificate](tutorial-secure-domain-certificate.md)

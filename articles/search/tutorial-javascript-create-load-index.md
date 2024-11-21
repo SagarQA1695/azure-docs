@@ -1,5 +1,5 @@
 ---
-title: "JavaScript tutorial: Add search to web apps" 
+title: "Load an index (JavaScript tutorial)" 
 titleSuffix: Azure Cognitive Search
 description: Create index and import CSV data into Search index with JavaScript using the npm SDK @azure/search-documents.
 manager: nitinme
@@ -7,64 +7,37 @@ author: diberry
 ms.author: diberry
 ms.service: cognitive-search
 ms.topic: tutorial
-ms.date: 11/01/2022
-ms.custom: devx-track-js
+ms.date: 07/18/2023
+ms.custom: devx-track-js, devx-track-azurecli, devx-track-azurepowershell
 ms.devlang: javascript
 ---
 
 # 2 - Create and load Search Index with JavaScript
 
-Continue to build your Search-enabled website by:
-* Create a Search resource with the VS Code extension
+Continue to build your search-enabled website by following these steps:
+* Create a search resource
 * Create a new index
-* Import data with JavaScript using the [sample script](https://github.com/Azure-Samples/azure-search-javascript-samples/blob/main/search-website-functions-v4/bulk-insert/bulk_insert_books.js) and Azure SDK [@azure/search-documents](https://www.npmjs.com/package/@azure/search-documents).
+* Import data with JavaScript using the [sample script](https://github.com/Azure-Samples/azure-search-javascript-samples/blob/main/search-website-functions-v4/bulk-insert-v4/bulk_insert_books.js) and Azure SDK [@azure/search-documents](https://www.npmjs.com/package/@azure/search-documents).
 
-## Create an Azure Search resource 
+## Create an Azure Cognitive Search resource
 
-Create a new Search resource with the [Azure Cognitive Search](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azurecognitivesearch) extension for Visual Studio Code.
-
-1. In Visual Studio Code, open the [Activity bar](https://code.visualstudio.com/docs/getstarted/userinterface), and select the Azure icon. 
-
-1. In the Side bar, **right-click on your Azure subscription** under the `Azure: Cognitive Search` area and select **Create new search service**.
-
-    :::image type="content" source="./media/tutorial-javascript-create-load-index/visual-studio-code-create-search-resource.png" alt-text="Screenshot of Visual Studio Code showing Azure explorer, right-click on your Azure subscription under the Azure: Cognitive Search area and select Create new search service.":::
-
-1. Follow the prompts to provide the following information:
-
-    |Prompt|Enter|
-    |--|--|
-    |Enter a globally unique name for the new Search Service.|**Remember this name**. This resource name becomes part of your resource endpoint.|
-    |Select a resource group for new resources|Use the resource group you created for this tutorial.|
-    |Select the SKU for your Search service.|Select **Free** for this tutorial. You can't change a SKU pricing tier after the service is created.|
-    |Select a location for new resources.|Select a region close to you.|
-
-1. After you complete the prompts, your new Search resource is created. 
-
-## Get your Search resource admin key
-
-Get your Search resource admin key with the Visual Studio Code extension. 
-
-1. In Visual Studio Code, in the Side bar, right-click on your Search resource and select **Copy Admin Key**.
-
-    :::image type="content" source="./media/tutorial-javascript-create-load-index/visual-studio-code-copy-admin-key.png" alt-text="Screenshot of Visual Studio Code showing Azure explorer, right-click on your Search resource and select Copy Admin Key.":::
-
-1. Keep this admin key, you'll need to use it in [a later section](#prepare-the-bulk-import-script-for-search). 
+[!INCLUDE [tutorial-create-search-resource](includes/tutorial-add-search-website-create-search-resource.md)]
 
 ## Prepare the bulk import script for Search
 
-The script uses the Azure SDK for Cognitive Search:
+The ESM script uses the Azure SDK for Cognitive Search:
 
 * [npm package @azure/search-documents](https://www.npmjs.com/package/@azure/search-documents)
 * [Reference Documentation](/javascript/api/overview/azure/search-documents-readme)
 
-1. In Visual Studio Code, open the `bulk_insert_books.js` file in the subdirectory,  `search-website-functions-v4/bulk-insert`, replace the following variables with your own values to authenticate with the Azure Search SDK:
+1. In Visual Studio Code, open the `bulk_insert_books.js` file in the subdirectory,  `search-website-functions-v4/bulk-insert-v4`, replace the following variables with your own values to authenticate with the Azure Search SDK:
 
     * YOUR-SEARCH-RESOURCE-NAME
     * YOUR-SEARCH-ADMIN-KEY
 
-    :::code language="javascript" source="~/azure-search-javascript-samples/search-website-functions-v4/bulk-insert/bulk_insert_books.js" highlight="14,16,17,27-38,83,92,119" :::
+    :::code language="javascript" source="~/azure-search-javascript-samples/search-website-functions-v4/bulk-insert-v4/bulk_insert_books.js" :::
 
-1. Open an integrated terminal in Visual Studio for the project directory's subdirectory, `search-website-functions-v4/bulk-insert`, and run the following command to install the dependencies. 
+1. Open an integrated terminal in Visual Studio for the project directory's subdirectory, `search-website-functions-v4/bulk-insert-v4`, and run the following command to install the dependencies. 
 
     ```bash
     npm install 
@@ -72,7 +45,7 @@ The script uses the Azure SDK for Cognitive Search:
 
 ## Run the bulk import script for Search
 
-1. Continue using the integrated terminal in Visual Studio for the project directory's subdirectory, `search-website-functions-v4/bulk-insert`, to run the following bash command to run the `bulk_insert_books.js` script:
+1. Continue using the integrated terminal in Visual Studio for the project directory's subdirectory, `search-website-functions-v4/bulk-insert-v4`, to run the following bash command to run the `bulk_insert_books.js` script:
 
     ```javascript
     npm start

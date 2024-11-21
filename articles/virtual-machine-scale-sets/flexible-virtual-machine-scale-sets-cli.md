@@ -4,11 +4,10 @@ description: Learn how to create a Virtual Machine Scale Set in Flexible orchest
 author: fitzgeraldsteele
 ms.author: fisteele
 ms.topic: how-to
-ms.service: virtual-machines
-ms.subservice: flexible-scale-sets
-ms.date: 11/01/2022
+ms.service: virtual-machine-scale-sets
+ms.date: 11/22/2022
 ms.reviewer: jushiman
-ms.custom: mimckitt, devx-track-azurecli, vmss-flex
+ms.custom: mimckitt, devx-track-azurecli, vmss-flex, devx-track-linux
 ---
 
 # Create virtual machines in a scale set using Azure CLI
@@ -40,7 +39,7 @@ az vmss create \
   --resource-group myResourceGroup \
   --name myScaleSet \
   --orchestration-mode Flexible \
-  --image UbuntuLTS \
+  --image <SKU Linux Image> \
   --upgrade-policy-mode automatic \
   --instance-count 2 \
   --admin-username azureuser \

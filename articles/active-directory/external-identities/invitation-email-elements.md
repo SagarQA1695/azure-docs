@@ -1,5 +1,5 @@
 ---
-title: Elements of the B2B invitation email - Azure Active Directory | Microsoft Docs
+title: Elements of the B2B invitation email
 description: Azure Active Directory B2B collaboration invitation email template
 
 services: active-directory
@@ -8,16 +8,16 @@ ms.subservice: B2B
 ms.topic: conceptual
 ms.date: 09/30/2022
 
-ms.author: mimart
-author: msmimart
+ms.author: cmulligan
+author: csmulligan
 manager: celestedg
 ms.custom: "it-pro, seo-update-azuread-jan"
 ms.collection: M365-identity-device-management
 ---
 
-# The elements of the B2B collaboration invitation email - Azure Active Directory
+# The elements of the B2B collaboration invitation email
 
-Invitation emails are a critical component to bring partners on board as B2B collaboration users in Azure AD. It’s [not required that you send an email to invite someone using B2B collaboration](add-user-without-invite.md), but it gives the user all the information they need to decide if they accept your invite or not. It also gives them a link they can always refer to in the future when they need to return to your resources.
+Invitation emails are a critical component to bring partners on board as B2B collaboration users in Azure AD. It’s [not required that you send an email to invite someone using B2B collaboration](redemption-experience.md#redemption-process-through-a-direct-link), but it gives the user all the information they need to decide if they accept your invite or not. It also gives them a link they can always refer to in the future when they need to return to your resources.
 
 ![Screenshot showing the B2B invitation email](media/invitation-email-elements/invitation-email.png)
 
@@ -63,7 +63,7 @@ The next section of the email contains information about where the invitee will 
 
 ### Footer section
 
-The footer contains more information about the invitation being sent. There's always an option for the invitee to block future invitations. If the organization has [set a privacy statement](../fundamentals/active-directory-properties-area.md), the link to the statement is displayed here.  Otherwise, a note indicates the organization hasn't set a privacy statement.
+The footer contains more information about the invitation being sent. There's always an option for the invitee to block future invitations. If the organization has [set a privacy statement](../fundamentals/properties-area.md), the link to the statement is displayed here.  Otherwise, a note indicates the organization hasn't set a privacy statement.
 
 ![Image of the footer section in the email](media/invitation-email-elements/footer-section.png)
 
@@ -100,4 +100,3 @@ See the following articles on Azure AD B2B collaboration:
 - [How do Azure Active Directory admins add B2B collaboration users?](add-users-administrator.md)
 - [How do information workers add B2B collaboration users?](add-users-information-worker.md)
 - [B2B collaboration invitation redemption](redemption-experience.md)
-- [Add B2B collaboration users without an invitation](add-user-without-invite.md)
