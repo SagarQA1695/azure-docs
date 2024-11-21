@@ -29,7 +29,7 @@ To learn more about VU Security and its complete set of solutions, visit
 
 To get started with the VU Identity Card, ensure the following prerequisites are met:
 
-- A tenant [configured](https://learn.microsoft.com/azure/active-directory/verifiable-credentials/verifiablee-credentials-configure-tenant)
+- A tenant [configured](./verifiable-credentials-configure-tenant.md)
   for Entra Verified ID service.
 
   - If you don\'t have an existing tenant, you can [create an Azure
@@ -49,7 +49,7 @@ VU Identity Card works as a link between users who need to access an application
 
 Verifiable credentials can be used to enable faster and easier user onboarding by replacing some human interactions. For example, a user or employee who wants to create or remotely access an account can use a Verified ID through VU Identity Card to verify their identity without using vulnerable or overly complex passwords or the requirement to be on-site.
 
-Learn more about [account onboarding](https://learn.microsoft.com/azure/active-directory/verifiable-credentials/plan-verification-solution#account-onboarding).
+Learn more about [account onboarding](./plan-verification-solution.md#account-onboarding).
 
 In this account onboarding scenario, Vu plays the Trusted ID proofing issuer role.
 
@@ -79,7 +79,7 @@ As a developer you can share these steps with your tenant administrator to obtai
    [ ![Screenshot of the portal section used to choose issuers.](./media/partner-vu/select-issuers.png)](./media/partner-vu/select-issuers.png#lightbox)
 
 5. Check the **VUIdentityCard** credential with the attributes
-   such as firstname, lastname, number, country, gender, birth-date, and nationality or any other credential type.
+   such as firstname, lastname, number, country/region, gender, birth-date, and nationality or any other credential type.
    >[!NOTE]
    >Number attribute refers to National ID. For example, DNI-National Identification Number in Argentina.
 

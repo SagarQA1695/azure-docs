@@ -23,20 +23,20 @@ Enabling federated single sign-on (SSO) in your app is automatically enabled whe
 
 * If you’re building a mobile app, you may need additional configurations to enable brokered or non-brokered SSO.
 
-For Android, see [Enabling Cross App SSO in Android](../azuread-dev/howto-v1-enable-sso-android.md).<br>
+For Android, see [Enabling Cross App SSO in Android](msal-android-single-sign-on.md).
 
-For iOS, see [Enabling Cross App SSO in iOS](../azuread-dev/howto-v1-enable-sso-ios.md).
+For iOS, see [Enabling Cross App SSO in iOS](single-sign-on-macos-ios.md).
 
 ## Next steps
 
 [Azure AD SSO](../manage-apps/what-is-single-sign-on.md)<br>
 
-[Enabling Cross App SSO in Android](../azuread-dev/howto-v1-enable-sso-android.md)<br>
+[Enabling Cross App SSO in Android](msal-android-single-sign-on.md)<br>
 
-[Enabling Cross App SSO in iOS](../azuread-dev/howto-v1-enable-sso-ios.md)<br>
+[Enabling Cross App SSO in iOS](single-sign-on-macos-ios.md)<br>
 
 [Integrating Apps to AzureAD](./quickstart-register-app.md)<br>
 
-[Permissions and consent in the Microsoft identity platform](./v2-permissions-and-consent.md)<br>
+[Permissions and consent in the Microsoft identity platform](./permissions-consent-overview.md)<br>
 
 [AzureAD Microsoft Q&A](/answers/topics/azure-active-directory.html)

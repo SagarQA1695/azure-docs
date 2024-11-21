@@ -198,7 +198,7 @@ sections:
       - question: |
           Does the API for NoSQL support SQL aggregation functions?
         answer: |
-          The API for NoSQL supports low-latency aggregation at any scale via aggregate functions `COUNT`, `MIN`, `MAX`, `AVG`, and `SUM` via the SQL grammar. For more information, see [Aggregate functions](nosql/query/aggregate-functions.md).
+          The API for NoSQL supports low-latency aggregation at any scale via aggregate functions `COUNT`, `MIN`, `MAX`, `AVG`, and `SUM` via the SQL grammar.
           
       - question: |
           How does the API for NoSQL provide concurrency?
@@ -218,7 +218,6 @@ sections:
           You can bulk-insert documents into Azure Cosmos DB in one of the following ways:
           
           * The bulk executor tool, as described in [Using bulk executor .NET library](nosql/bulk-executor-dotnet.md) and [Using bulk executor Java library](bulk-executor-java.md)
-          * The data migration tool, as described in [Database migration tool for Azure Cosmos DB](import-data.md).
           * Stored procedures, as described in [Server-side JavaScript programming for Azure Cosmos DB](stored-procedures-triggers-udfs.md).
           
       - question: |
