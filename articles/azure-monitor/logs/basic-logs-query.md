@@ -1,6 +1,9 @@
 ---
 title: Query data from Basic Logs in Azure Monitor 
 description: Create a log query using tables configured for Basic logs in Azure Monitor.
+author: guywi-ms
+ms.author: guywild
+ms.reviewer: adi.biran
 ms.topic: conceptual
 ms.date: 10/01/2022
 
@@ -9,11 +12,13 @@ ms.date: 10/01/2022
 # Query Basic Logs in Azure Monitor
 Basic Logs tables reduce the cost of ingesting high-volume verbose logs and let you query the data they store using a limited set of log queries. This article explains how to query data from Basic Logs tables. 
 
-For more information, see [Azure log data plans](log-analytics-workspace-overview.md#log-data-plans) and [Configure a table for Basic Logs](basic-logs-configure.md). 
+For more information, see [Set a table's log data plan](basic-logs-configure.md). 
 
 
 > [!NOTE]
-> Other tools that use the Azure API for querying - for example, Grafana and Power BI - cannot access Basic Logs. 
+> Other tools that use the Azure API for querying - for example, Grafana and Power BI - cannot access Basic Logs.
+
+[!INCLUDE [log-analytics-query-permissions](../../../includes/log-analytics-query-permissions.md)]
 
 ## Limitations
 Queries with Basic Logs are subject to the following limitations:
@@ -95,6 +100,5 @@ For more information, see [Azure Monitor pricing](https://azure.microsoft.com/pr
 
 ## Next steps
 
-- [Learn more about Basic Logs and the different log plans.](log-analytics-workspace-overview.md#log-data-plans)
-- [Configure a table for Basic Logs.](basic-logs-configure.md)
-- [Use a search job to retrieve data from Basic Logs into Analytics Logs where it can be queries multiple times.](search-jobs.md)
+- [Learn more about the Basic Logs and Analytics log plans](basic-logs-configure.md).
+- [Use a search job to retrieve data from Basic Logs into Analytics Logs where it can be queries multiple times](search-jobs.md).

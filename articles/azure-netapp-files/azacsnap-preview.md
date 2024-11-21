@@ -2,17 +2,13 @@
 title: Preview features for Azure Application Consistent Snapshot tool for Azure NetApp Files | Microsoft Docs
 description: Provides a guide for using the preview features of the Azure Application Consistent Snapshot tool that you can use with Azure NetApp Files. 
 services: azure-netapp-files
-documentationcenter: ''
 author: Phil-Jensen
-manager: ''
-editor: ''
-
-ms.assetid:
 ms.service: azure-netapp-files
 ms.workload: storage
 ms.tgt_pltfrm: na
+ms.custom: devx-track-azurecli
 ms.topic: reference
-ms.date: 07/29/2022
+ms.date: 08/21/2023
 ms.author: phjensen
 ---
 
@@ -20,24 +16,44 @@ ms.author: phjensen
 
 > [!NOTE]
 > PREVIEWS ARE PROVIDED "AS-IS," "WITH ALL FAULTS," AND "AS AVAILABLE," AND ARE EXCLUDED FROM THE SERVICE LEVEL AGREEMENTS AND LIMITED WARRANTY
-> ref:  https://azure.microsoft.com/support/legal/preview-supplemental-terms/
+> ref:  <https://azure.microsoft.com/support/legal/preview-supplemental-terms/>
 
 This article provides a guide on set up and usage of the new features in preview for **AzAcSnap**.  This guide should be read along with the main
 documentation for AzAcSnap at [aka.ms/azacsnap](./azacsnap-introduction.md).
 
-The preview features provided with **AzAcSnap 6** are:
+The preview features provided with **AzAcSnap 9** are:
+
+- Azure NetApp Files Backup.
 - Azure Managed Disk.
-- Azure Key Vault support for storing Service Principal.
 
 ## Providing feedback
 
 Feedback on AzAcSnap, including this preview, can be provided [online](https://aka.ms/azacsnap-feedback).
 
-## Getting the AzAcSnap Preview snapshot tools
+## Using AzAcSnap Preview features
 
-Refer to [Get started with Azure Application Consistent Snapshot tool](azacsnap-get-started.md)
+AzAcSnap preview features are offered together with generally available features.  Using the preview features requires the use of the `--preview` command line option to enable their usage.  To setup and install AzAcSnap refer to [Get started with Azure Application Consistent Snapshot tool](azacsnap-get-started.md)
 
-Return to this document for details on using the preview features.
+Return to this document for details on using the specific preview features.
+
+## Azure NetApp Files Backup
+
+> [!NOTE]
+> Support for Azure NetApp Files Backup is a Preview feature.  
+> This section's content supplements [Configure Azure Application Consistent Snapshot tool](azacsnap-cmd-ref-configure.md) website page.
+
+When taking snapshots with AzAcSnap on multiple volumes all the snapshots have the same name by default.  Due to the removal of the Volume name from the resource ID hierarchy when the snapshot is archived into Azure NetApp Files Backup it's necessary to ensure the Snapshot name is unique.  AzAcSnap can do this automatically when it creates the Snapshot by appending the Volume name to the normal snapshot name.  For example, for a system with two data volumes (`hanadata01`, `hanadata02`) when doing a `-c backup` with `--prefix daily` the complete snapshot names become `daily__F2AFDF98703__hanadata01` and `daily__F2AFDF98703__hanadata02`.  
+
+This can be enabled in AzAcSnap by setting `"anfBackup": "renameOnly"` in the configuration file, see the following snippet:
+
+```output
+"anfStorage": [
+  {
+    "anfBackup" : "renameOnly",
+    "dataVolume": [
+```
+
+This can also be done using the `azacsnap -c configure --configuration edit --configfile <configfilename>` and when asked to `Enter new value for 'ANF Backup (none, renameOnly)' (current = 'none'):` enter `renameOnly`.
 
 ## Azure Managed Disk
 
@@ -362,178 +378,6 @@ Although `azacsnap` is currently missing the `-c restore` option for Azure Manag
     software  write-test.txt
     ```
 
-
-
-## Azure Key Vault
-
-From AzAcSnap v5.1, it's possible to store the Service Principal securely as a Secret in Azure Key Vault.  Using this feature allows for centralization of Service Principal credentials
-where an alternate administrator can set up the Secret for AzAcSnap to use.
-
-The steps to follow to set up Azure Key Vault and store the Service Principal in a Secret are as follows:
-
-1. Within an Azure Cloud Shell session, make sure you're logged on at the subscription where you want to create the Azure Key Vault:
-
-    ```azurecli-interactive
-    az account show
-    ```
-
-1. If the subscription isn't correct, use the following command to set the Cloud Shell to the correct subscription:
-
-    ```azurecli-interactive
-    az account set -s <subscription name or id>
-    ```
-
-1. Create Azure Key Vault
-
-    ```azurecli-interactive
-    az keyvault create --name "<AzureKeyVaultName>" -g <ResourceGroupName>
-    ```
-
-1. Create the trust relationship and assign the policy for virtual machine to get the Secret
-
-   1. Show AzAcSnap virtual machine Identity
-      
-      If the virtual machine already has an identity created, retrieve it as follows:
-      
-      ```azurecli-interactive
-      az vm identity show --name "<VMName>" --resource-group "<ResourceGroup>"
-      ```
-      
-      The `"principalId"` in the output is used as the `--object-id` value when setting the Policy with `az keyvault set-policy`.
-      
-      ```output
-      {
-        "principalId": "99z999zz-99z9-99zz-99zz-9z9zz999zz99",
-        "tenantId": "99z999zz-99z9-99zz-99zz-9z9zz999zz99",
-        "type": "SystemAssigned, UserAssigned",
-        "userAssignedIdentities": { 
-          "/subscriptions/99z999zz-99z9-99zz-99zz-9z9zz999zz99/resourceGroups/AzSecPackAutoConfigRG/providers/Microsoft.ManagedIdentity/userAssignedIdentities/AzSecPackAutoConfigUA-eastus2": {
-            "clientId": "99z999zz-99z9-99zz-99zz-9z9zz999zz99",
-            "principalId": "99z999zz-99z9-99zz-99zz-9z9zz999zz99"
-          }
-        }
-      }
-      ```
-
-   1. Set AzAcSnap virtual machine Identity (if necessary)
-   
-      If the VM doesn't have an identity, create it as follows:
-      
-      ```azurecli-interactive
-      az vm identity assign --name "<VMName>" --resource-group "<ResourceGroup>"
-      ```
-      
-      The `"systemAssignedIdentity"` in the output is used as the `--object-id` value when setting the Policy with `az keyvault set-policy`.
-      
-      ```output
-      {
-        "systemAssignedIdentity": "99z999zz-99z9-99zz-99zz-9z9zz999zz99",
-        "userAssignedIdentities": {
-          "/subscriptions/99z999zz-99z9-99zz-99zz-  9z9zz999zz99/resourceGroups/AzSecPackAutoConfigRG/providers/Microsoft.ManagedIdentity/userAssignedIdentities/AzSecPackAutoConfigUA-eastus2": {
-            "clientId": "99z999zz-99z9-99zz-99zz-9z9zz999zz99",
-            "principalId": "99z999zz-99z9-99zz-99zz-9z9zz999zz99"
-          }
-        }
-      }
-      ```
-
-   1. Assign a suitable policy for the virtual machine to be able to retrieve the Secret from the Key Vault.
-
-      ```azurecli-interactive
-      az keyvault set-policy --name "<AzureKeyVaultName>" --object-id "<VMIdentity>" --secret-permissions get
-      ```
-
-1. Create Azure Key Vault Secret
-
-   Create the secret, which will store the Service Principal credential information.
-   
-   It's possible to paste the contents of the Service Principal. In the **Bash** Cloud Shell below a single apostrophe character is put after value then 
-   press the `[Enter]` key, then paste the contents of the Service Principal, close the content by adding another single apostrophe and press the `[Enter]` key.  
-   This command should create the Secret and store it in Azure Key Vault.
-   
-   > [!TIP] 
-   > If you have a separate Service Principal per installation the `"<NameOfSecret>"` could be the SID, or some other suitable unique identifier.
-  
-   Following example is for using the **Bash** Cloud Shell:
-
-    ```azurecli-interactive
-    az keyvault secret set --name "<NameOfSecret>" --vault-name "<AzureKeyVaultName>" --value '
-    {
-      "clientId": "99z999zz-99z9-99zz-99zz-9z9zz999zz99",
-      "clientSecret": "<ClientSecret>",
-      "subscriptionId": "99z999zz-99z9-99zz-99zz-9z9zz999zz99",
-      "tenantId": "99z999zz-99z9-99zz-99zz-9z9zz999zz99",
-      "activeDirectoryEndpointUrl": "https://login.microsoftonline.com",
-      "resourceManagerEndpointUrl": "https://management.azure.com/",
-      "activeDirectoryGraphResourceId": "https://graph.windows.net/",
-      "sqlManagementEndpointUrl": "https://management.core.windows.net:8443/",
-      "galleryEndpointUrl": "https://gallery.azure.com/",
-      "managementEndpointUrl": "https://management.core.windows.net/"
-    }'
-    ```
-
-    Following example is for using the **PowerShell** Cloud Shell:
-
-    > [!WARNING] 
-    > In PowerShell the double quotes have to be escaped with an additional double quote, so one double quote (") becomes two double quotes ("").
-
-    ```azurecli-interactive
-    az keyvault secret set --name "<NameOfSecret>" --vault-name "<AzureKeyVaultName>" --value '
-    {
-      ""clientId"": ""99z999zz-99z9-99zz-99zz-9z9zz999zz99"",
-      ""clientSecret"": ""<ClientSecret>"",
-      ""subscriptionId"": ""99z999zz-99z9-99zz-99zz-9z9zz999zz99"",
-      ""tenantId"": ""99z999zz-99z9-99zz-99zz-9z9zz999zz99"",
-      ""activeDirectoryEndpointUrl"": ""https://login.microsoftonline.com"",
-      ""resourceManagerEndpointUrl"": ""https://management.azure.com/"",
-      ""activeDirectoryGraphResourceId"": ""https://graph.windows.net/"",
-      ""sqlManagementEndpointUrl"": ""https://management.core.windows.net:8443/"",
-      ""galleryEndpointUrl"": ""https://gallery.azure.com/"",
-      ""managementEndpointUrl"": ""https://management.core.windows.net/""
-    }'
-    ```
-
-    The output of the command `az keyvault secret set` will have the URI value to use as `"authFile"` entry in the AzAcSnap JSON configuration file.  The URI is
-    the value of the `"id"` below (for example, `"https://<AzureKeyVaultName>.vault.azure.net/secrets/<NameOfSecret>/z9999999z9999999z9999999"`).
-
-    ```output
-    {
-      "attributes": {
-        "created": "2022-02-23T20:21:01+00:00",
-        "enabled": true,
-        "expires": null,
-        "notBefore": null,
-        "recoveryLevel": "Recoverable+Purgeable",
-        "updated": "2022-02-23T20:21:01+00:00"
-      },
-      "contentType": null,
-      "id": "https://<AzureKeyVaultName>.vault.azure.net/secrets/<NameOfSecret>/z9999999z9999999z9999999",
-      "kid": null,
-      "managed": null,
-      "name": "AzureAuth",
-      "tags": {
-        "file-encoding": "utf-8"
-      },
-      "value": "\n{\n  \"clientId\": \"99z999zz-99z9-99zz-99zz-9z9zz999zz99\",\n  \"clientSecret\": \"<ClientSecret>\",\n  \"subscriptionId\": \"99z999zz-99z9-99zz-99zz-9z9zz999zz99\",\n  \"tenantId\": \"99z999zz-99z9-99zz-99zz-9z9zz999zz99\",\n  \"activeDirectoryEndpointUrl\": \"https://login.microsoftonline.com\",\n  \"resourceManagerEndpointUrl\": \"https://management.azure.com/\",\n  \"activeDirectoryGraphResourceId\": \"https://graph.windows.net/\",\n  \"sqlManagementEndpointUrl\": \"https://management.core.windows.net:8443/\",\n  \"galleryEndpointUrl\": \"https://gallery.azure.com/\",\n  \"managementEndpointUrl\": \"https://management.core.windows.net/\"\n}"
-    }
-    ```
-
-1. Update AzAcSnap JSON configuration file
-
-   Replace the value for the authFile entry with the Secret's ID value.  Making this change can be done by editing the file using a tool like `vi`, or by using the 
-   `azacsnap -c configure --configuration edit` option.
-
-    1. Old Value
-  
-      ```output
-      "authFile": "azureauth.json"
-      ```
-  
-    1. New Value
-  
-      ```output
-      "authFile": "https://<AzureKeyVaultName>.vault.azure.net/secrets/<NameOfSecret>/z9999999z9999999z9999999"
-      ```
 
 
 ## Next steps

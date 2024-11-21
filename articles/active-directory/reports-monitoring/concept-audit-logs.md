@@ -1,7 +1,7 @@
 ---
 
-title: Audit logs in Azure Active Directory | Microsoft Docs
-description: Overview of the audit logs in Azure Active Directory.
+title: Learn about the audit logs in Azure Active Directory
+description: Overview of the audit logs available in Azure Active Directory.
 services: active-directory
 author: shlipsey3
 manager: amycolannino
@@ -9,76 +9,45 @@ ms.service: active-directory
 ms.topic: conceptual
 ms.workload: identity
 ms.subservice: report-monitor
-ms.date: 10/03/2022
+ms.date: 11/04/2022
 ms.author: sarahlipsey
 ms.reviewer: besiler
-ms.collection: M365-identity-device-management
+
 ---
+
 # Audit logs in Azure Active Directory 
 
-As an IT administrator, you want to know how your IT environment is doing. The information about your system’s health enables you to assess whether and how you need to respond to potential issues. 
+Azure Active Directory (Azure AD) activity logs include audit logs, which is a comprehensive report on every logged event in Azure AD. Changes to applications, groups, users, and licenses are all captured in the Azure AD audit logs.
 
-To support you with this goal, the Azure Active Directory (Azure AD) portal gives you access to three activity logs:
+Two other activity logs are also available to help monitor the health of your tenant:
 
 - **[Sign-ins](concept-sign-ins.md)** – Information about sign-ins and how your resources are used by your users.
-- **[Audit](concept-audit-logs.md)** – Information about changes applied to your tenant such as users and group management or updates applied to your tenant’s resources.
 - **[Provisioning](concept-provisioning-logs.md)** – Activities performed by the provisioning service, such as the creation of a group in ServiceNow or a user imported from Workday.
 
 This article gives you an overview of the audit logs.
 
-## What is it?
+## What can you do with audit logs?
 
-Audit logs in Azure AD provide access to system activity records, often needed for compliance. This log is categorized by user, group, and application management.
+Audit logs in Azure AD provide access to system activity records, often needed for compliance. You can get answers to questions related to users, groups, and applications.
 
-With a user-centric view, you can get answers to questions such as:
+**Users:**
 
-- What types of updates have been applied to users?
-
+- What types of changes were recently applied to users?
 - How many users were changed?
-
 - How many passwords were changed?
 
-- What has an administrator done in a directory?
+**Groups:**
 
-
-With a group-centric view, you can get answers to questions such as:
-
-- What are the groups that have been added?
-
-- Are there groups with membership changes?
-
+- What groups were recently added?
 - Have the owners of group been changed?
-
 - What licenses have been assigned to a group or a user?
 
+**Applications:**
 
-With an application-centric view, you can get answers to questions such as:
-
-- What applications have been added or updated?
-
-- What applications have been removed?
-
+- What applications have been added, updated, or removed?
 - Has a service principal for an application changed?
-
 - Have the names of applications been changed?
-
-- Who gave consent to an application?
-
  
-## How do I access it?
-
-The audit activity report is available in all editions of Azure AD. To access the audit logs, you need to have one of the following roles: 
-
-- Report Reader
-- Security Reader
-- Security Administrator
-- Global Reader
-- Global Administrator
-
-Sign in to the Azure portal and go to **Azure AD** and select **Audit log** from the **Monitoring** section.  
-
-You can also access the audit log through the [Microsoft Graph API](/graph/api/resources/azure-ad-auditlog-overview).
-
 ## What do the logs show?
 
 Audit logs have a default list view that shows:
@@ -88,11 +57,9 @@ Audit logs have a default list view that shows:
 - Category and name of the activity (*what*) 
 - Status of the activity (success or failure)
 - Target
-- Initiator / actor of an activity (who)
+- Initiator / actor of an activity (*who*)
 
 You can customize and filter the list view by clicking the **Columns** button in the toolbar. Editing the columns enables you to add or remove fields from your view.
-
-![Screenshot of available fields.](./media/concept-audit-logs/columnselect.png "Remove fields")
 
 ### Filtering audit logs
 
@@ -133,5 +100,5 @@ You can also access the Microsoft 365 activity logs programmatically by using th
 
 - [Azure AD audit activity reference](reference-audit-activities.md)
 - [Azure AD logs retention reference](reference-reports-data-retention.md)
-- [Azure AD log latencies reference](reference-reports-latencies.md)
+- [Azure AD log latencies reference](./reference-azure-ad-sla-performance.md)
 - [Unknown actors in audit report](/troubleshoot/azure/active-directory/unknown-actors-in-audit-reports)

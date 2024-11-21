@@ -1,8 +1,8 @@
 ---
 title: 'Troubleshoot Azure Managed Grafana'
 description: Troubleshoot Azure Managed Grafana issues related to fetching data, managing Managed Grafana dashboards, speed and more.
-author: maud-lv
-ms.author: malev
+author: mcleanbyron
+ms.author: mcleans
 ms.topic: troubleshooting
 ms.service: managed-grafana
 ms.date: 09/13/2022
@@ -47,7 +47,7 @@ If you get an error while filling out the form to create the Managed Grafana ins
 Enter a name that:
 
 - Is unique in the entire Azure region. It can't already be used by another user.
-- Is 30 characters long or smaller
+- Is 23 characters long or smaller
 - Begins with a letter. The rest can only be alphanumeric characters or hyphens, and the name must end with an alphanumeric character.
 
 ### Solution 2: review deployment error
@@ -101,6 +101,12 @@ This issue can happen if:
    1. In your Grafana workspace, select **Access control (IAM) > Add role assignment** to add this role assignment. You must have the Administrator or Owner access role for the subscription or Managed Grafana resource to make this role assignment. Ask your administrator to assist you if you don't have sufficient access.
    1. Your account is a foreign account: the Grafana instance isn't registered in your home tenant.
    1. If you recently addressed this problem and have been assigned a sufficient Grafana role, you may need to wait for some time before the cookie expires and get refreshed. This process normally takes 5 min. If in doubts, delete all cookies or start a private browser session to force a fresh new cookie with new role information.
+
+## Authorized users don't show up in Grafana Users configuration
+
+After you add a user to a Managed Grafana's built-in RBAC role, such as Grafana Viewer, you don't see that user listed in the Grafana's **Configuration** UI page right away. This behavior is *by design*. Managed Grafana's RBAC roles are stored in the Azure AD (AAD). For performance reasons, Managed Grafana doesn't automatically synchronize users assigned to the built-in roles to every instance. There is no notification for changes in RBAC assignments. Querying AAD periodically to get current assignments adds much extra load to the AAD service.
+
+There's no "fix" for this in itself. After a user signs into your Grafana instance, the user shows up in the **Users** tab under Grafana **Configuration**. You can see the corresponding role that user has been assigned to.
 
 ## Azure Managed Grafana dashboard panel doesn't display any data
 
@@ -216,4 +222,4 @@ Data sources configured with a managed identity may still be able to access data
 ## Next steps
 
 > [!div class="nextstepaction"]
-> [Configure data sources](./how-to-data-source-plugins-managed-identity.md)
+> [Support](./find-help-open-support-ticket.md)

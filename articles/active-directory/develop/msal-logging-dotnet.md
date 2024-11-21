@@ -12,12 +12,12 @@ ms.workload: identity
 ms.date: 10/21/2022
 ms.author: dmwendia
 ms.reviewer: saeeda, jmprieur
-ms.custom: aaddev
+ms.custom: aaddev, devx-track-dotnet
 ---
 
 # Logging in MSAL.NET
 
-[!INCLUDE [MSAL logging introduction](../../../includes/active-directory-develop-error-logging-introduction.md)]
+[!INCLUDE [MSAL logging introduction](./includes/error-handling-and-tips/error-logging-introduction.md)]
 
 ## Configure logging in MSAL.NET
 
@@ -65,7 +65,7 @@ The following code snippets are examples of such an implementation. If you use t
 
 #### Log level from configuration file
 
-It's highly recommended to configure your code to use a configuration file in your environment to set the log level as it will enable your code to change the MSAL logging level without needing to rebuild or restart the application. This is critical for diagnostic purposes, enabling us to quickly gather the required logs from the application that is currently deployed and in production. Verbose logging can be costly so it's best to use the *Information* level by default and enable verbose logging when an issue is encountered. [See JSON configuration provider](https://docs.microsoft.com/aspnet/core/fundamentals/configuration#json-configuration-provider) for an example on how to load data from a configuration file without restarting the application.
+It's highly recommended to configure your code to use a configuration file in your environment to set the log level as it will enable your code to change the MSAL logging level without needing to rebuild or restart the application. This is critical for diagnostic purposes, enabling us to quickly gather the required logs from the application that is currently deployed and in production. Verbose logging can be costly so it's best to use the *Information* level by default and enable verbose logging when an issue is encountered. [See JSON configuration provider](/aspnet/core/fundamentals/configuration#json-configuration-provider) for an example on how to load data from a configuration file without restarting the application.
 
 #### Log Level as Environment Variable
 
@@ -80,7 +80,7 @@ Example:
     {
         public EventLogLevel MinLogLevel { get; }
 
-        public TestIdentityLogger()
+        public MyIdentityLogger()
         {
             //Try to pull the log level from an environment variable
             var msalEnvLogLevel = Environment.GetEnvironmentVariable("MSAL_LOG_LEVEL");

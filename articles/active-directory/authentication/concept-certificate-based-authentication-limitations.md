@@ -1,16 +1,16 @@
 ---
-title: Limitations with Azure AD certificate-based authentication without federation - Azure Active Directory
+title: Limitations with Azure AD certificate-based authentication without federation
 description: Learn supported and unsupported scenarios for Azure AD certificate-based authentication
 
 services: active-directory
 ms.service: active-directory
 ms.subservice: authentication
 ms.topic: how-to
-ms.date: 10/10/2022
+ms.date: 01/29/2023
 
 ms.author: justinha
-author: vimrang
-manager: daveba
+author: justinha
+manager: amycolannino
 ms.reviewer: vimrang
 
 ms.collection: M365-identity-device-management
@@ -82,9 +82,7 @@ The following scenarios aren't supported:
 - [Technical deep dive for Azure AD CBA](concept-certificate-based-authentication-technical-deep-dive.md)   
 - [How to configure Azure AD CBA](how-to-certificate-based-authentication.md)
 - [Windows SmartCard logon using Azure AD CBA](concept-certificate-based-authentication-smartcard.md)
-- [Azure AD CBA on mobile devices (Android and iOS)](concept-certificate-based-authentication-mobile.md)
+- [Azure AD CBA on mobile devices (Android and iOS)](./concept-certificate-based-authentication-mobile-ios.md)
 - [CertificateUserIDs](concept-certificate-based-authentication-certificateuserids.md)
 - [How to migrate federated users](concept-certificate-based-authentication-migration.md)
 - [FAQ](certificate-based-authentication-faq.yml)
-
-
